@@ -1,0 +1,32 @@
+[user]
+  name = Nick Luckey
+  email = nickluckey@gmail.com
+[diff "astextplain"]
+  textconv = astextplain
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[http]
+  sslBackend = openssl
+  sslCAInfo = /etc/ssl/certs/ca-certificates.crt
+[core]
+  autocrlf = true
+  fscache = true
+  symlinks = false
+  longpaths = true
+  preloadindex = true
+[pull]
+  rebase = false
+[credential]
+  helper = manager-core
+[credential "https://dev.azure.com"]
+  useHttpPath = true
+[init]
+  defaultBranch = master
+[gc]
+  auto = 256
+[filter "tabspace"]
+  smudge = unexpand --tabs=4 --first-only
+  clean = expand --tabs=4 --initial
