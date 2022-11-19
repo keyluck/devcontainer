@@ -1,0 +1,29 @@
+[user]
+  name = Nick Luckey
+  email = nickluckey@gmail.com
+[diff "astextplain"]
+  textconv = astextplain
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[http]
+  sslBackend = openssl
+  sslCAInfo = /etc/ssl/certs/ca-certificates.crt
+	proxy = 
+[core]
+  fscache = true
+  symlinks = false
+  longpaths = true
+  preloadindex = true
+	sshCommand = ssh -i ~/.ssh/id_ed25519 -F /dev/null
+[pull]
+	rebase = true
+[gc]
+  auto = 256
+[filter "tabspace"]
+  smudge = unexpand --tabs=4 --first-only
+  clean = expand --tabs=4 --initial
+[commit]
+  gpgsign = true

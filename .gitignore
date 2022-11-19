@@ -3,3 +3,8 @@ repos/*
 **/.ssh
 **/.gnupg
 **/devcontainer.env
+**/.password-store
+**/.aws
+**/.vscode-server
+**/.config
+.devcontainer/configs/.devcontainer

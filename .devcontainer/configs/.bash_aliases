@@ -1,5 +1,5 @@
 #!/bin/bash
-alias av=aws-vault
+alias fix-gpg='pkill -9 gpg-agent && export GPG_TTY=$(tty)'
 alias ku=kubectl
 alias kz='kubectl kustomize'
 alias tf=terraform

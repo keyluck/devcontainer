@@ -1,13 +1,12 @@
 #!/bin/bash
 set -e
 
-directory="${1}"
-lhdidirectory="${directory}"/lighthouse-di
+lhdidirectory="/workspaces"
 id="github.com"
 pwd=$(pwd)
 
-sed "s/githubsshkeyid/${id}/g" "$(find . -name mrconfig)" > "${lhdidirectory}/.mrconfig"
-cd "${lhdidirectory}"
+sed "s/githubsshkeyid/${id}/g" "$(find . -maxdepth 1 -name mrconfig)" > "${lhdidirectory}/.mrconfig"
+cd "/workspaces"
 mr checkout
 echo -n "Installing pre-commit hooks at commit, commit-msg, prepare-commit-msg, pre-push..."
 mr --quiet run command pre-commit install && echo -n "..."
