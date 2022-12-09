@@ -7,4 +7,5 @@ repos/*
 **/.aws
 **/.vscode-server
 **/.config
+**/.docker
 .devcontainer/configs/.devcontainer

@@ -137,12 +137,17 @@ export PROMPT_DIRTRIM=4
 
 export GPG_TTY=$(tty)
 
+
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 
-alias av=aws-vault --backend=file --file-dir=~/.aws-vault/keys
-alias fix-gpg='pkill -9 gpg-agent && export GPG_TTY=$(tty)'
+alias av="aws-vault exec"
+alias avxp='av ldx.pipeline --'
 alias ku=kubectl
+alias ku.ctx='kubectl ctx'
+alias ku.ns='kubectl config set-context --current --namespace'
+alias test-curl='kubectl exec -n curl $(kubectl get pod -l app=sleep -n curl -o name) -- curl --cacert /etc/ssl/certs/ca-certificates.crt' 
+alias fix-gpg='pkill -9 gpg-agent && export GPG_TTY=$(tty)'
 alias kz='kubectl kustomize'
 alias tf=terraform
 alias lc=linode-cli
@@ -150,3 +155,10 @@ alias changens='kubectl config set-context --current --namespace '
 alias argocdpass='kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d'
 
 export PATH="/home/codespace/.krew/bin:$PATH"
+export PATH="${PATH}:${HOME}/.krew/bin"
+
+export AWS_SECRET_ACCESS_KEY=$(pass aws-vault/AWS_SECRET_ACCESS_KEY)
+export AWS_ACCESS_KEY_ID=$(pass aws-vault/AWS_ACCESS_KEY_ID)
+export GPG_TTY=$(tty)
+trap 'kill $SSH_AGENT_PID' EXIT
+
