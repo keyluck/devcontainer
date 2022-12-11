@@ -54,7 +54,7 @@
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "bash /workspaces/devcontainer/.devcontainer/scripts/postcreate.sh",
+  // "postCreateCommand": "bash /workspaces/devcontainer/.devcontainer/scripts/postcreate.sh",
   "postStartCommand": "bash /workspaces/devcontainer/.devcontainer/scripts/poststart.sh",
   // Install dependencies and give permission to use docker
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
