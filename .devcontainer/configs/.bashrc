@@ -143,6 +143,8 @@ ssh-add ~/.ssh/id_ed25519
 
 alias av="aws-vault exec"
 alias avxp='av ldx.pipeline --'
+alias aws='/usr/local/bin/aws'
+alias init-c='bash /workspaces/devcontainer/.devcontainer/scripts/poststart.sh'
 alias ku=kubectl
 alias ku.ctx='kubectl ctx'
 alias ku.ns='kubectl config set-context --current --namespace'
@@ -159,6 +161,7 @@ export PATH="${PATH}:${HOME}/.krew/bin"
 
 export AWS_SECRET_ACCESS_KEY=$(pass aws-vault/AWS_SECRET_ACCESS_KEY)
 export AWS_ACCESS_KEY_ID=$(pass aws-vault/AWS_ACCESS_KEY_ID)
+
 export GPG_TTY=$(tty)
 trap 'kill $SSH_AGENT_PID' EXIT
 

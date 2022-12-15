@@ -6,16 +6,15 @@ LBLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-init_setup() {
-  cp -r ${DEV_C_ROOT}/configs/. $HOME
-  envsubst < /workspaces/devcontainer/.devcontainer/configs/.aws/credentials > $HOME/.aws/credentials
-  
-  pass init -p aws-vault 202AFBD04D86E910
-  sudo chmod 600 ~/.ssh/id_ed*
-  eval "$(ssh-agent -s)"
-  ssh-add ~/.ssh/id_ed25519
-
-  git config --global push.autoSetupRemote true
+setup_aws() {
+  export GPG_TTY=$(tty)
+  echo 'Yes' | /workspaces/lighthouse-di-documentation/maintainers/scripts/onboarding/aws-setup.sh
+  # export AWS_SECRET_ACCESS_KEY=$(pass aws-vault/AWS_SECRET_ACCESS_KEY)
+  # export AWS_ACCESS_KEY_ID=$(pass aws-vault/AWS_ACCESS_KEY_ID)
+  aws configure set aws_access_key_id $(pass aws-vault/AWS_SECRET_ACCESS_KEY)
+  aws configure set aws_secret_access_key $(pass aws-vault/AWS_ACCESS_KEY_ID)
+  # aws configure set aws_access_key_id $(chamber read project/project-ldx/teams/lhdi/platform/env/ldx-dev/ldx-service-account-2 aws_access_key_id -q) 
+  # aws configure set aws_secret_access_key $(chamber read project/project-ldx/teams/lhdi/platform/env/ldx-dev/ldx-service-account-2 aws_secret_access_key -q) 
 }
 
 verify_tools() {
@@ -35,10 +34,10 @@ verify_tools() {
 
 setup_kube(){
   echo -e "\nSetting up Kubernetes...\n"
-  export GPG_TTY=$(tty)
   aws-vault exec ldx.pipeline --no-session -- /workspaces/lighthouse-di-documentation/maintainers/scripts/onboarding/kubernetes-setup.sh
+  sudo chmod -R 0777 ~/.kube
 }
 
-init_setup
+setup_aws
 verify_tools
 setup_kube
